@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.catasgn1.TodoController"
+      spacing="10.0">
+
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+    </padding>
+
+    <!-- Menu Bar -->
+    <MenuBar>
+        <Menu text="File">
+            <MenuItem text="Exit"/>
+        </Menu>
+        <Menu text="Help">
+            <MenuItem text="About"/>
+        </Menu>
+    </MenuBar>
+
+    <!-- Input Section -->
+    <VBox spacing="10.0">
+        <Label text="Add New Task" style="-fx-font-weight: bold; -fx-font-size: 14;"/>
+
+        <HBox spacing="10.0" alignment="CENTER_LEFT">
+            <TextField fx:id="titleField" promptText="Task Title" HBox.hgrow="ALWAYS"/>
+            <ComboBox fx:id="categoryBox" promptText="Category" prefWidth="150"/>
+            <ComboBox fx:id="priorityBox" promptText="Priority" prefWidth="120"/>
+        </HBox>
+
+        <DatePicker fx:id="dueDatePicker" promptText="Due Date"/>
+
+        <TextArea fx:id="descriptionField" promptText="Task Description"
+                  prefRowCount="3" wrapText="true"/>
+
+        <Button text="Add Task" onAction="#onAddTask"
+                style="-fx-font-weight: bold;"
+                defaultButton="true"/>
+    </VBox>
+
+    <!-- Task Table -->
+    <VBox spacing="5.0" VBox.vgrow="ALWAYS">
+        <Label text="Tasks" style="-fx-font-weight: bold; -fx-font-size: 14;"/>
+        <TableView fx:id="taskTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn text="Title" prefWidth="150"/>
+                <TableColumn text="Category" prefWidth="100"/>
+                <TableColumn text="Priority" prefWidth="80"/>
+                <TableColumn text="Due Date" prefWidth="100"/>
+                <TableColumn text="Status" prefWidth="80"/>
+            </columns>
+        </TableView>
+    </VBox>
+
+</VBox>
