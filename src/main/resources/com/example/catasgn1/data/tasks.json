@@ -1,0 +1,40 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Complete project proposal",
+      "description": "Write and finalize the quarterly project proposal document",
+      "due_date": "2024-01-15",
+      "category": "Work",
+      "status": "in progress",
+      "priority": "high"
+    },
+    {
+      "id": 2,
+      "title": "Buy groceries",
+      "description": "Milk, eggs, bread, fruits, and vegetables",
+      "due_date": "2024-01-10",
+      "category": "Personal",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "id": 3,
+      "title": "Dentist appointment",
+      "description": "Regular dental checkup at Main Street Clinic",
+      "due_date": "2024-01-12",
+      "category": "Health",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "id": 4,
+      "title": "Read book",
+      "description": "Finish reading 'The Psychology of Money'",
+      "due_date": "2024-01-20",
+      "category": "Learning",
+      "status": "completed",
+      "priority": "low"
+    }
+  ]
+}
