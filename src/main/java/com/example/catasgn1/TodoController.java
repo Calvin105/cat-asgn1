@@ -5,7 +5,7 @@ import com.example.catasgn1.service.TaskManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import java.time.LocalDate;
+import java.util.Arrays;
 
 public class TodoController {
 
@@ -26,8 +26,19 @@ public class TodoController {
 
     @FXML
     private void initialize() {
-        categoryBox.getItems().addAll("Work", "Personal", "Study");
-        priorityBox.getItems().addAll("Low", "Medium", "High");
+        // Initialize categoryBox using TaskCategory enum
+        categoryBox.getItems().addAll(
+            Arrays.stream(Constants.TaskCategory.values())
+                .map(Enum::toString) // Convert enum constants to String (e.g., "WORK")
+                .toList()
+        );
+
+        // Initialize priorityBox using TaskPriority enum
+        priorityBox.getItems().addAll(
+            Arrays.stream(Constants.TaskPriority.values())
+                .map(Enum::toString) // Convert enum constants to String (e.g., "HIGH")
+                .toList()
+        );
 
         taskTable.setItems(taskManager.getTasks());
     }

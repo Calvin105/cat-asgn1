@@ -1,4 +1,4 @@
-package com.example.catasgn1;
+package com.example.catasgn1.utils;
 
 import com.google.gson.*;
 import java.lang.reflect.Type;
