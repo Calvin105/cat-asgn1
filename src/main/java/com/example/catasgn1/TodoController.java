@@ -34,17 +34,17 @@ public class TodoController {
 
     @FXML
     private void onAddTask() {
-        Task task = new Task(
-                titleField.getText(),
-                descriptionField.getText(),
-                dueDatePicker.getValue(),
-                categoryBox.getValue(),
-                priorityBox.getValue()
-        );
-        taskManager.addTask(task);
-
-        titleField.clear();
-        descriptionField.clear();
-        dueDatePicker.setValue(LocalDate.now());
+//        Task task = new Task(
+//                titleField.getText(),
+//                descriptionField.getText(),
+//                dueDatePicker.getValue(),
+//                categoryBox.getValue(),
+//                priorityBox.getValue()
+//        );
+//        taskManager.addTask(task);
+//
+//        titleField.clear();
+//        descriptionField.clear();
+//        dueDatePicker.setValue(LocalDate.now());
     }
 }

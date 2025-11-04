@@ -1,8 +1,10 @@
 package com.example.catasgn1.model;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class Task {
+    private String id;
     private String title;
     private String description;
     private LocalDate dueDate;
@@ -10,7 +12,8 @@ public class Task {
     private String priority;
     private boolean completed;
 
-    public Task(String title, String description, LocalDate dueDate, String category, String priority) {
+    public Task(String id, String title, String description, LocalDate dueDate, String category, String priority) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
@@ -20,6 +23,8 @@ public class Task {
     }
 
     // Getters and setters
+    public String getId() { return id; }
+
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
 
@@ -37,4 +42,16 @@ public class Task {
 
     public boolean isCompleted() { return completed; }
     public void setCompleted(boolean completed) { this.completed = completed; }
+
+    public String toString() {
+        return "Task {" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", dueDate=" + dueDate +
+                ", category='" + category + '\'' +
+                ", priority='" + priority + '\'' +
+                ", completed=" + completed +
+                '}';
+    }
 }

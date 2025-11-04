@@ -21,11 +21,11 @@ To design and implement a **JavaFX-based To-Do List** with a **user-friendly GUI
 
 ## 👥 Team Members & Roles
 
-| Member | Role | Responsibilities |
-|:-------|:------|:----------------|
-| 🧑‍💻 **Person A** | Core Logic & Data Persistence | Implement `Task` and `TaskManager` classes, handle JSON read/write operations, ensure data is saved and loaded correctly. |
-| 🧑‍🎨 **Person B** | GUI Design (SceneBuilder) | Design all interface layouts using SceneBuilder, connect FXML components to controller, ensure visual consistency and usability. |
-| 🧑‍🔬 **Person C** | Search, Filter & Integration | Implement task filtering and keyword search, connect GUI events with logic, perform integration testing and video demos. |
+| Member                          | Role | Responsibilities |
+|:--------------------------------|:------|:----------------|
+| 🧑‍💻 **Calvin Khoo Zhen Chen** | Core Logic & Data Persistence | Implement `Task` and `TaskManager` classes, handle JSON read/write operations, ensure data is saved and loaded correctly. |
+| 🧑‍🎨 **Ch'ng Bao Sheng**       | GUI Design (SceneBuilder) | Design all interface layouts using SceneBuilder, connect FXML components to controller, ensure visual consistency and usability. |
+| 🧑‍🔬 **Pik Yun Han**           | Search, Filter & Integration | Implement task filtering and keyword search, connect GUI events with logic, perform integration testing and video demos. |
 
 ---
 
