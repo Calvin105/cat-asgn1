@@ -1,8 +1,10 @@
 package com.example.catasgn1.controllers;
 
+import com.example.catasgn1.model.TodoList;
 import com.example.catasgn1.utils.Constants;
 import com.example.catasgn1.model.Task;
-import com.example.catasgn1.service.TaskManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -23,25 +25,26 @@ public class TodoController {
     @FXML
     private TableView<Task> taskTable;
 
-    private final TaskManager taskManager = new TaskManager();
+    private final TodoList todoManager = new TodoList();
 
     @FXML
     private void initialize() {
         // Initialize categoryBox using TaskCategory enum
         categoryBox.getItems().addAll(
             Arrays.stream(Constants.TaskCategory.values())
-                .map(Enum::toString) // Convert enum constants to String (e.g., "WORK")
+                .map(Constants.TaskCategory::toCapitalized) // Convert enum constants to capitalised string (e.g., "Work")
                 .toList()
         );
 
         // Initialize priorityBox using TaskPriority enum
         priorityBox.getItems().addAll(
             Arrays.stream(Constants.TaskPriority.values())
-                .map(Enum::toString) // Convert enum constants to String (e.g., "HIGH")
+                .map(Constants.TaskPriority::toCapitalized) // Convert enum constants to capitalised string (e.g., "High")
                 .toList()
         );
 
-        taskTable.setItems(taskManager.getTasks());
+        ObservableList<Task> tasks = FXCollections.observableArrayList(todoManager.getTasks());
+        taskTable.setItems(tasks);
     }
 
     @FXML

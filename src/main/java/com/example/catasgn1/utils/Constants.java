@@ -4,7 +4,13 @@ public class Constants {
     public enum TaskPriority {
         HIGH,
         MEDIUM,
-        LOW
+        LOW;
+
+        // Converts enum name to capitalized word
+        public String toCapitalized() {
+            String name = this.name().toLowerCase(); // "high"
+            return name.substring(0, 1).toUpperCase() + name.substring(1); // "High"
+        }
     }
 
     public enum TaskCategory {
@@ -13,6 +19,12 @@ public class Constants {
         FINANCE,
         HEALTH,
         LEARNING,
-        OTHER
+        OTHER;
+
+        // Converts enum name to capitalized word
+        public String toCapitalized() {
+            String name = this.name().toLowerCase(); // "high"
+            return name.substring(0, 1).toUpperCase() + name.substring(1); // "High"
+        }
     }
 }
