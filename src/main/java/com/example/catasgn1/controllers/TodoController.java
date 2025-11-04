@@ -1,5 +1,6 @@
-package com.example.catasgn1;
+package com.example.catasgn1.controllers;
 
+import com.example.catasgn1.utils.Constants;
 import com.example.catasgn1.model.Task;
 import com.example.catasgn1.service.TaskManager;
 import javafx.fxml.FXML;

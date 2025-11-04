@@ -111,17 +111,13 @@ SmartTodoList/
 │   │   │       → Connects the GUI with the backend logic.
 │   │   │       → Handles button clicks, search filters, and data updates.
 │   │   │
-│   │   ├── model/
-│   │   │   ├── Task.java
-│   │   │   │   → Represents a single to-do task (title, description, date, etc.)
-│   │   │   │
-│   │   │   └── TaskManager.java
-│   │   │       → Manages the list of tasks (add, edit, delete, mark complete).
-│   │   │       → Handles JSON file I/O using Gson.
-│   │   │
-│   │   └── service/
-│   │       └── JsonStorage.java
-│   │           → Handles saving/loading data to/from tasks.json.
+│   │   └─── model/
+│   │       ├── Task.java
+│   │       │   → Represents a single to-do task (title, description, date, etc.)
+│   │       │
+│   │       └── TaskManager.java
+│   │           → Manages the list of tasks (add, edit, delete, mark complete).
+│   │           → Handles JSON file I/O using Gson.
 │   │
 │   └── resources/
 │       ├── ui/

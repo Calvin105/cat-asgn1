@@ -1,6 +1,6 @@
 package com.example.catasgn1.model;
 
-import com.example.catasgn1.TodoInterface;
+import com.example.catasgn1.interfaces.TodoInterface;
 import com.example.catasgn1.utils.LocalDateAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -17,9 +17,9 @@ public class TodoList implements TodoInterface {
     static final String FILE_PATH ="src/main/resources/com/example/catasgn1/data/tasks.json";
     // Read write JSON file with LocalDateAdapter to serialise and deserialize the LocalDate string correctly
     Gson gson = new GsonBuilder()
-            .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-            .setPrettyPrinting()
-            .create();
+        .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+        .setPrettyPrinting()
+        .create();
 
     public TodoList() {
         loadTasks();

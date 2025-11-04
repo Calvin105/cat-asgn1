@@ -1,11 +1,12 @@
 package com.example.catasgn1.model;
 
-import com.example.catasgn1.Constants;
+import com.example.catasgn1.utils.Constants;
+import com.example.catasgn1.interfaces.TaskInterface;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
-public class Task {
+public class Task implements TaskInterface {
     private String id;
     private String title;
     private String description;

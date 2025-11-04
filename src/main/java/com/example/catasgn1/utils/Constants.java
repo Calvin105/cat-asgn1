@@ -1,4 +1,4 @@
-package com.example.catasgn1;
+package com.example.catasgn1.utils;
 
 public class Constants {
     public enum TaskPriority {

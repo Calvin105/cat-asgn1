@@ -1,9 +1,8 @@
-package com.example.catasgn1;
+package com.example.catasgn1.interfaces;
 
 
 import com.example.catasgn1.model.Task;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface TodoInterface {
