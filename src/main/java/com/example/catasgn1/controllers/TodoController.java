@@ -3,6 +3,7 @@ package com.example.catasgn1.controllers;
 import com.example.catasgn1.model.Task;
 import com.example.catasgn1.model.TodoList;
 import com.example.catasgn1.utils.Constants;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,8 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 public class TodoController {
 
@@ -22,18 +25,38 @@ public class TodoController {
     @FXML
     private TextField fieldSearch;
     @FXML
-    private ComboBox<Constants.TaskCategory> comboCategory;
+    private ComboBox<String> comboCategory;
+    @FXML
+    private ComboBox<String> comboPriority;
+    @FXML
+    private ComboBox<String> comboDueDate;
+    @FXML
+    private ComboBox<String> comboStatus;
 
     // Table
     @FXML
-    private TableView<TodoList> todoList;
+    private TableView<TodoList> taskTableView;
 
     private final TodoList todoManager = new TodoList();
 
     @FXML
     private void initialize() {
-        comboCategory.getItems().addAll(Constants.TaskCategory.values());
-        System.out.println(todoManager.getTasks());
+
+
+        comboCategory.getItems().addAll(
+            Stream.concat(
+                Arrays.stream(Constants.TaskCategory.values()).map(Enum::name),
+                Stream.of("None")
+            ).toList()
+        );
+        comboPriority.setItems(FXCollections.observableArrayList(
+            Stream.concat(
+                Arrays.stream(Constants.TaskPriority.values()).map(Enum::name),
+                Stream.of("None")
+            ).toList()
+        ));
+        comboDueDate.getItems().addAll(new String[]{"Ascending", "Descending", "None"});
+        comboStatus.getItems().addAll(new String[]{"Done", "Pending", "None"});
     }
 
     @FXML

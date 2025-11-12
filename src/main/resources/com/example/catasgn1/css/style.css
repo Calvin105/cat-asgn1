@@ -8,9 +8,13 @@
 /* ---- Top Toolbar ---- */
 .tool-bar {
     -fx-background-color: #cfe4fc; /* soft blue toolbar */
-    -fx-border-color: #b5d3fa;
     -fx-border-width: 0 0 1 0;
     -fx-padding: 8 12 8 12;
+}
+
+.todo-title {
+    -fx-padding: 10 0 10 0;
+    -fx-background-color: #cfe4fc;
 }
 
 /* ---- Navigation Buttons ---- */
