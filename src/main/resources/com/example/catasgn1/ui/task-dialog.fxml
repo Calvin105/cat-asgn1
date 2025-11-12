@@ -10,57 +10,97 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
- <AnchorPane prefHeight="600.0" prefWidth="400.0" styleClass="content-area" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.catasgn1.controllers.AddTaskDialogController">
+<AnchorPane prefHeight="624.0" prefWidth="400.0" styleClass="content-area" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.catasgn1.controllers.AddTaskDialogController">
      <VBox alignment="CENTER_LEFT" layoutX="68.0" layoutY="32.0" prefHeight="539.0" prefWidth="263.0">
          <padding>
              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
          <Label prefHeight="42.0" prefWidth="261.0" styleClass="title-label" text="Add Task" />
          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-             <Label prefHeight="15.0" prefWidth="27.0" text="Title" />
+             <Label prefHeight="19.0" prefWidth="38.0" text="Title">
+            <font>
+               <Font size="16.0" />
+            </font></Label>
              <Label alignment="CENTER" styleClass="required-asterisk" text="*" textAlignment="CENTER" textFill="RED" />
          <VBox.margin>
             <Insets top="20.0" />
          </VBox.margin>
          </HBox>
-         <TextField fx:id="taskTitleTextField" prefHeight="114.0" prefWidth="223.0" promptText="Title" />
+         <TextField fx:id="taskTitleTextField" prefHeight="134.0" prefWidth="223.0" promptText="Title" />
+         <Label fx:id="errorTitle" text="Title field can't be empty" textFill="#FF0000" visible="false">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font></Label>
+
          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-             <Label prefHeight="15.0" prefWidth="66.0" text="Description" />
+             <Label prefHeight="19.0" prefWidth="91.0" text="Description">
+            <font>
+               <Font size="16.0" />
+            </font></Label>
              <Label alignment="CENTER" styleClass="required-asterisk" text="*" textAlignment="CENTER" textFill="RED" />
          <VBox.margin>
             <Insets top="10.0" />
          </VBox.margin>
          </HBox>
          <TextArea fx:id="taskDescriptionTextField" prefHeight="173.0" prefWidth="223.0" promptText="Description" wrapText="true" />
+         <Label fx:id="errorDescription" text="Description field can't be empty" textFill="#FF0000" visible="false">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font></Label>
+
          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-             <Label prefHeight="15.0" prefWidth="53.0" text="Category" />
+             <Label prefHeight="19.0" prefWidth="70.0" text="Category">
+            <font>
+               <Font size="16.0" />
+            </font></Label>
              <Label alignment="CENTER" styleClass="required-asterisk" text="*" textAlignment="CENTER" textFill="RED" />
          <VBox.margin>
             <Insets top="10.0" />
          </VBox.margin>
          </HBox>
          <ComboBox fx:id="taskCategoryTextField" prefHeight="114.0" prefWidth="221.0" promptText="Category" />
+         <Label fx:id="errorCategory" text="Category field can't be empty" textFill="#FF0000" visible="false">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font></Label>
+
          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-             <Label prefHeight="15.0" prefWidth="44.0" text="Priority" />
+             <Label prefHeight="19.0" prefWidth="59.0" text="Priority">
+            <font>
+               <Font size="16.0" />
+            </font></Label>
              <Label alignment="CENTER" styleClass="required-asterisk" text="*" textAlignment="CENTER" textFill="RED" />
          <VBox.margin>
             <Insets top="10.0" />
          </VBox.margin>
          </HBox>
-         <ComboBox fx:id="taskPriorityTextField" prefHeight="114.0" prefWidth="221.0" promptText="Priority" />
+         <ComboBox fx:id="taskPriorityTextField" prefHeight="134.0" prefWidth="221.0" promptText="Priority" />
+         <Label fx:id="errorPriority" text="Priority field can't be empty" textFill="#FF0000" visible="false">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font></Label>
+
          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-             <Label prefHeight="19.0" prefWidth="55.0" text="Due Date" />
+             <Label prefHeight="19.0" prefWidth="74.0" text="Due Date">
+            <font>
+               <Font size="16.0" />
+            </font></Label>
              <Label alignment="CENTER" styleClass="required-asterisk" text="*" textAlignment="CENTER" textFill="RED" />
          <VBox.margin>
             <Insets top="10.0" />
          </VBox.margin>
          </HBox>
-         <DatePicker fx:id="taskDueDateTextPicker" prefHeight="114.0" prefWidth="215.0" promptText="Due Date" />
+         <DatePicker fx:id="taskDueDateTextPicker" prefHeight="134.0" prefWidth="215.0" promptText="Due Date" />
+         <Label fx:id="errorDueDate" text="Due Date field can't be empty" textFill="#FF0000" visible="false">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font></Label>
+
          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-             <Button onAction="#onAddTask" mnemonicParsing="false" text="+ Save" />
-             <Button onAction="#onCancelTask" mnemonicParsing="false" text="x Cancel" />
+             <Button mnemonicParsing="false" onAction="#onAddTask" text="+ Save" />
+             <Button mnemonicParsing="false" onAction="#onCancelTask" text="x Cancel" />
          <VBox.margin>
             <Insets top="20.0" />
          </VBox.margin>

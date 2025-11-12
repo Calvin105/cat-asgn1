@@ -4,10 +4,7 @@ import com.example.catasgn1.model.Task;
 import com.example.catasgn1.utils.Constants;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
@@ -34,6 +31,7 @@ public class AddTaskDialogController {
         dialogStage.close();
     }
 
+    // Fields
     @FXML
     private TextField taskTitleTextField;
     @FXML
@@ -44,6 +42,18 @@ public class AddTaskDialogController {
     private ComboBox<Constants.TaskPriority> taskPriorityTextField;
     @FXML
     private DatePicker taskDueDateTextPicker;
+
+    // Errors
+    @FXML
+    private Label errorTitle;
+    @FXML
+    private Label errorDescription;
+    @FXML
+    private Label errorCategory;
+    @FXML
+    private Label errorPriority;
+    @FXML
+    private Label errorDueDate;
 
     @FXML
     private void initialize() {
@@ -58,11 +68,15 @@ public class AddTaskDialogController {
         Constants.TaskPriority priority = taskPriorityTextField.getValue();
         LocalDate dueDate = taskDueDateTextPicker.getValue();
 
-        System.out.println("Title: " + taskTitle);
-        System.out.println(taskDescription);
-        System.out.println(category);
-        System.out.println(priority);
-        System.out.println(dueDate);
+        if (taskTitle == null || taskDescription == null || category == null || priority == null || dueDate == null) {
+            validateField(taskTitle, errorTitle);
+            validateField(taskDescription, errorDescription);
+            validateField(category, errorCategory);
+            validateField(priority, errorPriority);
+            validateField(dueDate, errorDueDate);
+
+            return;
+        }
 
         this.isSaveClicked = true;
         this.result = new Task(taskTitle, taskDescription, dueDate, category, priority);
@@ -72,5 +86,11 @@ public class AddTaskDialogController {
 
     public void onCancelTask(ActionEvent actionEvent) {
         dialogStage.close();
+    }
+
+    private <T> void validateField(T fieldValue, Label errorMessage) {
+        boolean isInvalid = fieldValue == null || (fieldValue instanceof String && ((String) fieldValue).isEmpty());
+        errorMessage.setVisible(isInvalid);
+        errorMessage.setStyle("-fx-text-fill: red;");
     }
 }

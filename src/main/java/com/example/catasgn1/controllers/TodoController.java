@@ -18,16 +18,22 @@ import java.io.IOException;
 
 public class TodoController {
 
+    // Search fields
     @FXML
     private TextField fieldSearch;
     @FXML
     private ComboBox<Constants.TaskCategory> comboCategory;
+
+    // Table
+    @FXML
+    private TableView<TodoList> todoList;
 
     private final TodoList todoManager = new TodoList();
 
     @FXML
     private void initialize() {
         comboCategory.getItems().addAll(Constants.TaskCategory.values());
+        System.out.println(todoManager.getTasks());
     }
 
     @FXML

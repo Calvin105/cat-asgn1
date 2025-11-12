@@ -121,6 +121,12 @@
     -fx-text-fill: #0a2e73;
 }
 
+.error-text {
+    -fx-font-weight: normal;
+    -fx-font-style: italic;
+    --block-font-size: 10px;
+}
+
 /* ---- Scrollbar ---- */
 .scroll-bar:horizontal, .scroll-bar:vertical {
     -fx-background-color: transparent;
