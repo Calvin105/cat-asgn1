@@ -2,6 +2,7 @@ module com.example.catasgn1 {
     requires javafx.controls;
     requires javafx.fxml;
     requires com.google.gson;
+    requires javafx.base;
 
 
     opens com.example.catasgn1 to javafx.fxml, com.google.gson;

@@ -1,7 +1,3 @@
-/* ===============================================
-   💎 Smart Todo - Flat Light Blue Theme (No gradients)
-   =============================================== */
-
 /* ---- Global Base ---- */
 .root {
     -fx-background-color: #e8f1fb; /* light sky blue background */
@@ -24,7 +20,7 @@
     -fx-font-weight: bold;
     -fx-font-size: 14px;
     -fx-padding: 6 18 6 18;
-    -fx-background-radius: 6;
+    -fx-background-radius: 10;
     -fx-cursor: hand;
 }
 
@@ -49,22 +45,21 @@
 
 /* ---- Add Task Button ---- */
 .add-task-button {
-    -fx-background-color: #6fa8ff;
+    -fx-background-color: #567da8;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-font-size: 13px;
-    -fx-background-radius: 6;
-    -fx-padding: 6 16 6 16;
+    -fx-background-radius: 60;
+    -fx-padding: 6 10 6 10;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(111,168,255,0.5), 8, 0.3, 0, 2);
+    /*-fx-effect: dropshadow(gaussian, rgba(111,168,255,0.5), 8, 0.3, 0, 2);*/
 }
 
 .add-task-button:hover {
-    -fx-background-color: #5c99ff;
+    -fx-background-color: #0B3A64;
 }
-
 .add-task-button:pressed {
-    -fx-background-color: #407de6;
+    -fx-background-color: #001F3F;
 }
 
 /* ---- Table View ---- */
@@ -112,6 +107,12 @@
 /* ---- Labels ---- */
 .label {
     -fx-text-fill: #1a1a1a;
+    -fx-font-weight: bold;
+}
+
+.required-asterisk {
+    -fx-text-fill: #A30000;
+    -fx-font-weight: bold;
 }
 
 .title-label {
@@ -132,4 +133,68 @@
 
 .scroll-bar:hover .thumb {
     -fx-background-color: #8bb9ff;
+}
+
+
+/* --- Global Card Styling --- */
+.todo-card-container {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 8;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 4);
+}
+
+.completed-card {
+    -fx-opacity: 0.6;
+    -fx-border-color: #bdbdbd;
+}
+
+/* --- Category Banner --- */
+.category-banner {
+    -fx-padding: 4 0;
+    -fx-font-size: 10pt;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-radius: 8 8 0 0;
+}
+
+.category-work { -fx-background-color: #3b82f6; }   /* Blue */
+.category-personal { -fx-background-color: #f97316; } /* Orange */
+.category-health { -fx-background-color: #10b981; }  /* Emerald */
+
+/* --- Content --- */
+.card-title {
+    -fx-font-size: 16pt;
+    -fx-font-weight: bold;
+}
+
+.completed-text {
+    -fx-strikethrough: true;
+    -fx-text-fill: #9e9e9e;
+}
+
+.card-description {
+    -fx-font-size: 10pt;
+    -fx-text-fill: #757575;
+}
+
+/* --- Metadata (Priority & Date) --- */
+.priority-label {
+    -fx-font-weight: semi-bold;
+    -fx-font-size: 10pt;
+}
+
+.priority-high-icon {
+    -fx-text-fill: #b91c1c; /* Red for high priority icon */
+}
+
+.priority-high {
+    -fx-text-fill: #b91c1c; /* Red for high priority text */
+}
+
+.date-label {
+    -fx-font-size: 11pt;
+    -fx-text-fill: #424242;
 }

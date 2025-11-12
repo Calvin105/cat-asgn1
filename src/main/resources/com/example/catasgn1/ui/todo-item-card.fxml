@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.geometry.Insets?>
+
+<VBox fx:id="cardContainer" styleClass="todo-card-container"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+
+    <Label fx:id="categoryBanner" text="WORK" styleClass="category-banner"
+           maxWidth="Infinity" alignment="CENTER" />
+
+    <HBox spacing="16" styleClass="card-content-wrapper">
+        <padding>
+            <Insets top="12" right="16" bottom="12" left="16" />
+        </padding>
+
+        <VBox HBox.hgrow="ALWAYS" spacing="4">
+            <Label fx:id="titleLabel" text="Prepare Q4 Budget" styleClass="card-title" />
+
+            <Label fx:id="descriptionLabel" text="Reviewing all department requests and compiling final numbers..."
+                   styleClass="card-description" wrapText="true" />
+
+            <Region VBox.vgrow="ALWAYS" minHeight="8" /> <HBox alignment="CENTER_LEFT" spacing="20" styleClass="card-metadata-row">
+            <HBox alignment="CENTER_LEFT" spacing="4">
+                <Label fx:id="priorityIcon" text="🔥" styleClass="priority-icon" />
+                <Label fx:id="priorityLabel" text="High Priority" styleClass="priority-label" />
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="4">
+                <Label text="📅" styleClass="date-icon" />
+                <Label fx:id="dueDateLabel" text="Nov 15, 2025" styleClass="date-label" />
+            </HBox>
+        </HBox>
+        </VBox>
+
+        <VBox alignment="CENTER" spacing="0">
+            <CheckBox fx:id="completionCheckbox" />
+        </VBox>
+
+    </HBox>
+</VBox>

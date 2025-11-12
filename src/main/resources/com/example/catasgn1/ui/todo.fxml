@@ -8,25 +8,23 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.catasgn1.controllers.TodoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="749.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.catasgn1.controllers.TodoController">
    <top>
-      <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-        <items>
-          <Button fx:id="addTaskbutton" mnemonicParsing="false" styleClass="add-task-button" text="+ New Task" />
-            <ComboBox prefHeight="33.0" prefWidth="206.0" promptText="statusFilterComboBox" />
-            <TextField text="searchField" />
-        </items>
-      </ToolBar>
+       <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+           <Button fx:id="btnAddTask" mnemonicParsing="false" onAction="#showTaskDialog" styleClass="add-task-button" text="+" />
+           <TextField fx:id="fieldSearch" prefHeight="34.0" prefWidth="365.0" text="Search"/>
+           <ComboBox fx:id="comboCategory" prefHeight="33.0" prefWidth="206.0" promptText="Find Category"/>
+       </ToolBar>
    </top>
    <center>
       <TableView fx:id="taskTableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn prefWidth="137.60000610351562" text="Title" />
-            <TableColumn prefWidth="124.0" text="Description" />
-            <TableColumn prefWidth="69.60003662109375" text="Priority" />
-            <TableColumn prefWidth="88.00006103515625" text="Due Date" />
-            <TableColumn prefWidth="93.60003662109375" text="Category" />
-            <TableColumn prefWidth="85.60003662109375" text="Status" />
+            <TableColumn prefWidth="254.0" text="Description" />
+            <TableColumn minWidth="0.0" prefWidth="87.0" text="Priority" />
+            <TableColumn prefWidth="92.0" text="Due Date" />
+            <TableColumn prefWidth="96.0" text="Category" />
+            <TableColumn text="Status" />
         </columns>
       </TableView>
    </center>

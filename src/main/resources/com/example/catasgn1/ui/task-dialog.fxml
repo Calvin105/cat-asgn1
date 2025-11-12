@@ -10,37 +10,60 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="400.0" styleClass="content-area" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main">
-   <children>
-      <VBox alignment="CENTER" layoutX="68.0" layoutY="55.0" prefHeight="504.0" prefWidth="263.0" spacing="12.0">
+
+ <AnchorPane prefHeight="600.0" prefWidth="400.0" styleClass="content-area" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.catasgn1.controllers.AddTaskDialogController">
+     <VBox alignment="CENTER_LEFT" layoutX="68.0" layoutY="32.0" prefHeight="539.0" prefWidth="263.0">
          <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
-         <children>
-            <Label prefHeight="42.0" prefWidth="261.0" styleClass="title-label" text="Add Task" />
-            <Label prefHeight="15.0" prefWidth="221.0" text="Title">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <TextField fx:id="titleField" promptText="Title" />
-            <Label prefHeight="15.0" prefWidth="223.0" text="Description" />
-            <TextArea fx:id="descriptionField" prefHeight="38.0" prefWidth="249.0" promptText="description" />
-            <Label prefHeight="15.0" prefWidth="214.0" text="Category" />
-            <ComboBox fx:id="categoryConboBox" prefHeight="33.0" prefWidth="221.0" promptText="Category" />
-            <Label prefHeight="15.0" prefWidth="214.0" text="Priority" />
-            <ComboBox fx:id="priorityComboBox" prefHeight="33.0" prefWidth="221.0" promptText="Priority" />
-            <Label prefHeight="15.0" prefWidth="216.0" text="Due Date" />
-            <DatePicker fx:id="dueDatePicker" prefHeight="25.0" prefWidth="215.0" promptText="Due Date" />
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="saveButton" mnemonicParsing="false" text="+ Save" />
-                  <Button fx:id="cancelButton" mnemonicParsing="false" text="x Cancel" />
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-   </children>
-</AnchorPane>
+         <Label prefHeight="42.0" prefWidth="261.0" styleClass="title-label" text="Add Task" />
+         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+             <Label prefHeight="15.0" prefWidth="27.0" text="Title" />
+             <Label alignment="CENTER" styleClass="required-asterisk" text="*" textAlignment="CENTER" textFill="RED" />
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+         </HBox>
+         <TextField fx:id="taskTitleTextField" prefHeight="114.0" prefWidth="223.0" promptText="Title" />
+         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+             <Label prefHeight="15.0" prefWidth="66.0" text="Description" />
+             <Label alignment="CENTER" styleClass="required-asterisk" text="*" textAlignment="CENTER" textFill="RED" />
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+         </HBox>
+         <TextArea fx:id="taskDescriptionTextField" prefHeight="173.0" prefWidth="223.0" promptText="Description" wrapText="true" />
+         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+             <Label prefHeight="15.0" prefWidth="53.0" text="Category" />
+             <Label alignment="CENTER" styleClass="required-asterisk" text="*" textAlignment="CENTER" textFill="RED" />
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+         </HBox>
+         <ComboBox fx:id="taskCategoryTextField" prefHeight="114.0" prefWidth="221.0" promptText="Category" />
+         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+             <Label prefHeight="15.0" prefWidth="44.0" text="Priority" />
+             <Label alignment="CENTER" styleClass="required-asterisk" text="*" textAlignment="CENTER" textFill="RED" />
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+         </HBox>
+         <ComboBox fx:id="taskPriorityTextField" prefHeight="114.0" prefWidth="221.0" promptText="Priority" />
+         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+             <Label prefHeight="19.0" prefWidth="55.0" text="Due Date" />
+             <Label alignment="CENTER" styleClass="required-asterisk" text="*" textAlignment="CENTER" textFill="RED" />
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+         </HBox>
+         <DatePicker fx:id="taskDueDateTextPicker" prefHeight="114.0" prefWidth="215.0" promptText="Due Date" />
+         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+             <Button onAction="#onAddTask" mnemonicParsing="false" text="+ Save" />
+             <Button onAction="#onCancelTask" mnemonicParsing="false" text="x Cancel" />
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+         </HBox>
+     </VBox>
+ </AnchorPane>

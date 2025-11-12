@@ -12,7 +12,7 @@ public class Launcher extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(
-                Launcher.class.getResource("ui/main-view.fxml")
+                Launcher.class.getResource("ui/todo.fxml")
         );
 
         Scene scene = new Scene(fxmlLoader.load());

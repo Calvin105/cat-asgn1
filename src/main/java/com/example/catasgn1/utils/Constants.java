@@ -2,9 +2,9 @@ package com.example.catasgn1.utils;
 
 public class Constants {
     public enum TaskPriority {
-        HIGH,
-        MEDIUM,
-        LOW;
+        High,
+        Medium,
+        Low;
 
         // Converts enum name to capitalized word
         public String toCapitalized() {
@@ -14,12 +14,12 @@ public class Constants {
     }
 
     public enum TaskCategory {
-        WORK,
-        PERSONAL,
-        FINANCE,
-        HEALTH,
-        LEARNING,
-        OTHER;
+        Work,
+        Personal,
+        Finance,
+        Health,
+        Learning,
+        Other;
 
         // Converts enum name to capitalized word
         public String toCapitalized() {

@@ -22,8 +22,8 @@ public class Main {
             "Submit Tax Documents",
             "Gather and submit all required tax documents for Q4 filing.",
             LocalDate.of(2025, 11, 15),
-            Constants.TaskCategory.FINANCE,
-            Constants.TaskPriority.HIGH
+            Constants.TaskCategory.Finance,
+            Constants.TaskPriority.High
         ));
         printTodoList(todoList);
 

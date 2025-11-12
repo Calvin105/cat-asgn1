@@ -1,65 +1,69 @@
 package com.example.catasgn1.controllers;
 
+import com.example.catasgn1.model.Task;
 import com.example.catasgn1.model.TodoList;
 import com.example.catasgn1.utils.Constants;
-import com.example.catasgn1.model.Task;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
-import java.util.Arrays;
+import java.io.IOException;
 
 public class TodoController {
 
     @FXML
-    private TextField titleField;
+    private TextField fieldSearch;
     @FXML
-    private TextArea descriptionField;
-    @FXML
-    private DatePicker dueDatePicker;
-    @FXML
-    private ComboBox<String> categoryBox;
-    @FXML
-    private ComboBox<String> priorityBox;
-    @FXML
-    private TableView<Task> taskTable;
+    private ComboBox<Constants.TaskCategory> comboCategory;
 
     private final TodoList todoManager = new TodoList();
 
     @FXML
     private void initialize() {
-        // Initialize categoryBox using TaskCategory enum
-        categoryBox.getItems().addAll(
-            Arrays.stream(Constants.TaskCategory.values())
-                .map(Constants.TaskCategory::toCapitalized) // Convert enum constants to capitalised string (e.g., "Work")
-                .toList()
-        );
-
-        // Initialize priorityBox using TaskPriority enum
-        priorityBox.getItems().addAll(
-            Arrays.stream(Constants.TaskPriority.values())
-                .map(Constants.TaskPriority::toCapitalized) // Convert enum constants to capitalised string (e.g., "High")
-                .toList()
-        );
-
-        ObservableList<Task> tasks = FXCollections.observableArrayList(todoManager.getTasks());
-        taskTable.setItems(tasks);
+        comboCategory.getItems().addAll(Constants.TaskCategory.values());
     }
 
     @FXML
-    private void onAddTask() {
-//        Task task = new Task(
-//                titleField.getText(),
-//                descriptionField.getText(),
-//                dueDatePicker.getValue(),
-//                categoryBox.getValue(),
-//                priorityBox.getValue()
-//        );
-//        taskManager.addTask(task);
-//
-//        titleField.clear();
-//        descriptionField.clear();
-//        dueDatePicker.setValue(LocalDate.now());
+    private void showTaskDialog(ActionEvent actionEvent) {
+        try {
+            // 1. Load the FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/catasgn1/ui/task-dialog.fxml"));
+            Parent root = loader.load();
+
+            // 2. Create the Stage for the pop-up
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Task Details");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+
+            // 3. Get the owner window from the button that triggered the event
+            // (Node)event.getSource() is the button that was clicked.
+            Window mainWindow = ((Node)actionEvent.getSource()).getScene().getWindow();
+            dialogStage.initOwner(mainWindow);
+
+            // 4. Set the Scene and display
+            dialogStage.setScene(new Scene(root));
+
+            // OPTIONAL: Pass Stage to dialog controller
+            AddTaskDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+
+            // Use showAndWait() to display the dialog and block the main scene
+            dialogStage.showAndWait();
+
+            // Handle results here after dialog closes
+            if (controller.isSaveClicked()) {
+                Task newTask = controller.getResult();
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
