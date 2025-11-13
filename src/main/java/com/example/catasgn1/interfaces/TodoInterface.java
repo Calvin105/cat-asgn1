@@ -12,6 +12,8 @@ public interface TodoInterface {
 
     public List<Task> getTasks();
 
+    public void updateTask(String id, Task task);
+
     public boolean isEmpty();
 
     public int getSize();

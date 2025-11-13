@@ -47,6 +47,18 @@ public class TodoList implements TodoInterface {
     }
 
     @Override
+    public void updateTask(String id, Task task) {
+        Task updateTask = this.getTask(id);
+        updateTask.setTitle(task.getTitle());
+        updateTask.setDescription(task.getDescription());
+        updateTask.setCompleted(task.isCompleted());
+        updateTask.setPriority(task.getPriority());
+        updateTask.setDueDate(task.getDueDate());
+        saveTasks();
+        System.out.println("TodoList updateTask");
+    }
+
+    @Override
     public boolean isEmpty() {
         return false;
     }

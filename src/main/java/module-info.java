@@ -3,6 +3,9 @@ module com.example.catasgn1 {
     requires javafx.fxml;
     requires com.google.gson;
     requires javafx.base;
+    requires org.kordamp.ikonli.core;
+    requires org.kordamp.ikonli.javafx;
+    requires org.kordamp.ikonli.fontawesome5;
 
 
     opens com.example.catasgn1 to javafx.fxml, com.google.gson;

@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="507.0" prefWidth="872.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.catasgn1.controllers.TodoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="954.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.catasgn1.controllers.TodoController">
    <center>
       <TableView fx:id="taskTableView" prefHeight="200.0" prefWidth="749.0" BorderPane.alignment="CENTER">
         <columns>
@@ -26,30 +26,23 @@
             <TableColumn fx:id="dueDateCol" prefWidth="81.0" text="Due Date" />
             <TableColumn fx:id="categoryCol" prefWidth="75.0" text="Category" />
             <TableColumn fx:id="statusCol" prefWidth="81.0" text="Status" />
+            <TableColumn fx:id="actionCol" prefWidth="81.0" text="Actions" />
         </columns>
       </TableView>
    </center>
    <top>
        <VBox prefHeight="71.0" prefWidth="749.0" BorderPane.alignment="CENTER">
-         <MenuBar>
-           <menus>
-             <Menu mnemonicParsing="false" text="File">
-               <items>
-                 <MenuItem mnemonicParsing="false" text="Close" />
-               </items>
-             </Menu>
-             <Menu mnemonicParsing="false" text="Help">
-               <items>
-                 <MenuItem mnemonicParsing="false" text="About" />
-               </items>
-             </Menu>
-             <Menu mnemonicParsing="false" text="Exit">
-               <items>
-                 <MenuItem mnemonicParsing="false" text="Delete" />
-               </items>
-             </Menu>
-           </menus>
-         </MenuBar>
+           <MenuBar>
+               <Menu mnemonicParsing="false" text="File">
+                   <MenuItem mnemonicParsing="false" text="Close"/>
+               </Menu>
+               <Menu mnemonicParsing="false" text="Help">
+                   <MenuItem mnemonicParsing="false" text="About"/>
+               </Menu>
+               <Menu mnemonicParsing="false" text="Exit">
+                   <MenuItem mnemonicParsing="false" text="Delete"/>
+               </Menu>
+           </MenuBar>
            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="todo-title" text="Todo List" textAlignment="CENTER">
               <font>
                   <Font size="36.0" />
@@ -59,8 +52,7 @@
               </VBox.margin>
            </Label>
            <ToolBar maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0">
-               <Button mnemonicParsing="false" onAction="#showTaskDialog" prefHeight="35.0" prefWidth="35.0" styleClass="add-task-button" text="+" />
-            <Button fx:id="btnDeleteTask" mnemonicParsing="false" onAction="#handleDeleteTask" prefHeight="35.0" prefWidth="35.0" styleClass="add-task-button" text="-" />
+           <Button mnemonicParsing="false" onAction="#showTaskDialog" prefHeight="35.0" prefWidth="35.0" styleClass="add-task-button" text="+" />
             <Region prefHeight="48.0" prefWidth="58.0" />
                <VBox layoutX="316.0" layoutY="10.0" prefHeight="48.0" prefWidth="334.0">
                    <Label text="Search" />
