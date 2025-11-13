@@ -26,6 +26,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
+import org.kordamp.ikonli.fontawesome5.FontAwesomeRegular;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 import org.kordamp.ikonli.javafx.FontIcon;
 
@@ -205,7 +206,6 @@ public class TodoController {
                             // Handle results here after dialog closes
                             if (controller.isSaveClicked()) {
                                 Task updatedTask = controller.getResult();
-                                System.out.println("SOME STUFF: " + updatedTask);
                                 todoManager.updateTask(originalID, updatedTask);
                                 refreshTable();
                             }
@@ -238,16 +238,40 @@ public class TodoController {
                     setText(null);
                 } else {
                     Task currentTask = getTableView().getItems().get(getIndex());
-                    System.out.println("SOME STUFF: " + currentTask);
-                    // Example: show checkbox based on completed status
-                    CheckBox checkBox = new CheckBox();
-                    checkBox.setSelected(item);
-                    checkBox.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
-                        currentTask.setCompleted(isSelected);
+
+                    FontIcon completedIcon = new FontIcon(FontAwesomeSolid.CHECK_CIRCLE);
+                    completedIcon.setIconSize(24);
+                    completedIcon.setIconColor(Color.GREEN);
+                    completedIcon.setCursor(Cursor.HAND);
+
+                    FontIcon incompleteIcon = new FontIcon(FontAwesomeRegular.CIRCLE); // Note the use of Regular for the outline
+                    incompleteIcon.setIconSize(24);
+                    incompleteIcon.setIconColor(Color.GRAY);
+                    incompleteIcon.setCursor(Cursor.HAND);
+
+                    FontIcon taskStatusIcon = item ? completedIcon : incompleteIcon;
+
+                    // Add a click listener to the icon
+                    taskStatusIcon.setOnMouseClicked(event -> {
+                        // Determine the new state
+                        boolean newCompletedStatus = !currentTask.isCompleted();
+
+                        // Update the task object
+                        currentTask.setCompleted(newCompletedStatus);
+
+                        // Update the model (database/manager)
                         todoManager.updateTask(currentTask.getId(), currentTask);
+
+                        // Update the displayed graphic immediately
+                        if (newCompletedStatus) {
+                            setGraphic(completedIcon);
+                        } else {
+                            setGraphic(incompleteIcon);
+                        }
                     });
 
-                    setGraphic(checkBox);
+                    setAlignment(Pos.CENTER);
+                    setGraphic(taskStatusIcon);
                     setText(null);
                 }
             }
@@ -279,11 +303,6 @@ public class TodoController {
     }
 
     private void handleFilterChange() {
-        System.out.println("Search Field: " + search);
-        System.out.println("Priority: " + priority);
-        System.out.println("Status: " + status);
-        System.out.println("Category: " + category + '\n');
-
         // 1. Start with a Predicate that shows everything
         Predicate<Task> combinedPredicate = p -> true;
 

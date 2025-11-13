@@ -16,7 +16,7 @@
       "dueDate": "2024-01-10",
       "category": "PERSONAL",
       "priority": "MEDIUM",
-      "completed": true
+      "completed": false
     },
     {
       "id": "3",
