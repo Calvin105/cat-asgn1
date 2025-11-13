@@ -11,12 +11,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
@@ -138,10 +138,11 @@ public class TodoController {
         categoryCol.setCellValueFactory(
                 cellData -> cellData.getValue().categoryProperty()
         );
-        dueDateCol.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
         statusCol.setCellValueFactory(
                 cellData -> cellData.getValue().completedProperty()
         );
+        dueDateCol.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
+
         Callback<TableColumn<Task, String>, TableCell<Task, String>> actionCellFactory = (TableColumn<Task, String> _) -> new TableCell<Task, String>() {
             @Override
             public void updateItem(String item, boolean empty) {
@@ -215,21 +216,46 @@ public class TodoController {
                     });
 
                     // Join them together with HBox
-                    HBox managebtn = new HBox(editIcon, deleteIcon);
-                    managebtn.setStyle("-fx-alignment:center");
+                    HBox manageBtn = new HBox(editIcon, deleteIcon);
+                    manageBtn.setAlignment(Pos.CENTER);
                     HBox.setMargin(deleteIcon, new Insets(2, 2, 0, 3));
                     HBox.setMargin(editIcon, new Insets(2, 3, 0, 2));
 
-                    setGraphic(managebtn);
+                    setGraphic(manageBtn);
 
                     setText(null);
                 }
             }
         };
 
-        // Make the column editable
+        Callback<TableColumn<Task, Boolean>, TableCell<Task, Boolean>> statusCellFactory = (TableColumn<Task, Boolean> _) -> new TableCell<Task, Boolean>() {
+            @Override
+            public void updateItem(Boolean item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                    setText(null);
+                } else {
+                    Task currentTask = getTableView().getItems().get(getIndex());
+                    System.out.println("SOME STUFF: " + currentTask);
+                    // Example: show checkbox based on completed status
+                    CheckBox checkBox = new CheckBox();
+                    checkBox.setSelected(item);
+                    checkBox.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
+                        currentTask.setCompleted(isSelected);
+                        todoManager.updateTask(currentTask.getId(), currentTask);
+                    });
+
+                    setGraphic(checkBox);
+                    setText(null);
+                }
+            }
+        };
+
+            // Make the column editable
         actionCol.setCellFactory(actionCellFactory);
-        statusCol.setCellFactory(CheckBoxTableCell.forTableColumn(statusCol));
+        statusCol.setCellFactory(statusCellFactory);
         priorityCol.setCellFactory(ComboBoxTableCell.forTableColumn(Arrays.toString(Constants.TaskPriority.values())));
 
         // 2. Set up the list
