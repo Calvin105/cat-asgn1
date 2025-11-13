@@ -31,6 +31,9 @@ public class TodoController {
     @FXML private ComboBox<String> comboPriority;
     @FXML private ComboBox<String> comboStatus;
 
+    // Add this with your other @FXML variables at the top
+    @FXML private Button btnDeleteTask;
+
     private String search;
     private String category;
     private String priority;
@@ -129,6 +132,32 @@ public class TodoController {
 
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    // Add this new method to your TodoController class
+
+    @FXML
+    private void handleDeleteTask(ActionEvent actionEvent) {
+        // 1. Get the task currently selected in the table
+        Task selectedTask = taskTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedTask != null) {
+            // 2. Remove the task from the model (for saving to JSON)
+            todoManager.removeTask(selectedTask.getId());
+
+            // 3. Reload the task list to refresh the table
+            // (Following the same pattern as your showTaskDialog)
+            taskList.clear();
+            taskList.addAll(todoManager.getTasks());
+            taskTableView.refresh();
+        } else {
+            // Optional but recommended: Show a warning if no task is selected
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Task Selected");
+            alert.setContentText("Please select a task in the table to delete.");
+            alert.showAndWait();
         }
     }
 
