@@ -122,7 +122,7 @@ public class TodoController {
                         Stream.of("None")
                 ).toList()
         ));
-        comboStatus.getItems().addAll(new String[]{"Done", "Pending", "None"});
+        comboStatus.getItems().addAll("Done", "Pending", "None");
     }
 
     private void setupTable() {
@@ -142,87 +142,89 @@ public class TodoController {
         statusCol.setCellValueFactory(
                 cellData -> cellData.getValue().completedProperty()
         );
-        Callback<TableColumn<Task, String>, TableCell<Task, String>> actionCellFactory = (TableColumn<Task, String> param) -> {
-            return new TableCell<Task, String>() {
-                @Override
-                public void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
+        Callback<TableColumn<Task, String>, TableCell<Task, String>> actionCellFactory = (TableColumn<Task, String> _) -> new TableCell<Task, String>() {
+            @Override
+            public void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
 
-                    // Create cell on non-empty row
-                    if (empty) {
-                        setGraphic(null);
-                        setText(null);
-                    } else {
-                        // Create delete and edit icons, style it
-                        FontIcon deleteIcon = new FontIcon(FontAwesomeSolid.TRASH);
-                        deleteIcon.setIconSize(24);
-                        deleteIcon.setIconColor(Color.RED);
-                        deleteIcon.setCursor(Cursor.HAND);
+                // Create cell on non-empty row
+                if (empty) {
+                    setGraphic(null);
+                    setText(null);
+                } else {
+                    // Create delete and edit icons, style it
+                    FontIcon deleteIcon = new FontIcon(FontAwesomeSolid.TRASH);
+                    deleteIcon.setIconSize(24);
+                    deleteIcon.setIconColor(Color.RED);
+                    deleteIcon.setCursor(Cursor.HAND);
 
-                        FontIcon editIcon = FontIcon.of(FontAwesomeSolid.PEN_SQUARE);
-                        editIcon.setIconSize(24);
-                        editIcon.setIconColor(Color.GREEN);
-                        editIcon.setCursor(Cursor.HAND);
+                    FontIcon editIcon = FontIcon.of(FontAwesomeSolid.PEN_SQUARE);
+                    editIcon.setIconSize(24);
+                    editIcon.setIconColor(Color.GREEN);
+                    editIcon.setCursor(Cursor.HAND);
 
-                        // Then set listeners on those icons
-                        deleteIcon.setOnMouseClicked(event -> {
-                            Task currentTask = taskTableView.getSelectionModel().getSelectedItem();
-                            todoManager.removeTask(currentTask.getId());
-                            refreshTable();
-                        });
+                    // Then set listeners on those icons
+                    deleteIcon.setOnMouseClicked(_ -> {
+                        Task currentTask = taskTableView.getSelectionModel().getSelectedItem();
+                        todoManager.removeTask(currentTask.getId());
+                        refreshTable();
+                    });
 
-                        editIcon.setOnMouseClicked(event -> {
-                            Task currentTask = taskTableView.getSelectionModel().getSelectedItem();
+                    editIcon.setOnMouseClicked(event -> {
+                        Task currentTask = taskTableView.getSelectionModel().getSelectedItem();
+                        String originalID = currentTask.getId();
 
-                            try {
-                                // 1. Load the FXML
-                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/catasgn1/ui/task-dialog.fxml"));
-                                Parent root = loader.load();
+                        try {
+                            // 1. Load the FXML
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/catasgn1/ui/task-dialog.fxml"));
+                            Parent root = loader.load();
 
-                                // 2. Create the Stage for the pop-up
-                                Stage dialogStage = new Stage();
-                                dialogStage.setTitle("Task Details");
-                                dialogStage.initModality(Modality.WINDOW_MODAL);
+                            // 2. Create the Stage for the pop-up
+                            Stage dialogStage = new Stage();
+                            dialogStage.setTitle("Task Details");
+                            dialogStage.initModality(Modality.WINDOW_MODAL);
 
-                                // 3. Get the owner window from the button that triggered the event
-                                // (Node)event.getSource() is the button that was clicked.
-                                Window mainWindow = ((Node)event.getSource()).getScene().getWindow();
-                                dialogStage.initOwner(mainWindow);
+                            // 3. Get the owner window from the button that triggered the event
+                            // (Node)event.getSource() is the button that was clicked.
+                            Window mainWindow = ((Node)event.getSource()).getScene().getWindow();
+                            dialogStage.initOwner(mainWindow);
 
-                                // 4. Set the Scene and display
-                                dialogStage.setScene(new Scene(root));
+                            // 4. Set the Scene and display
+                            dialogStage.setScene(new Scene(root));
 
-                                // Pass Stage to dialog controller
-                                AddTaskDialogController controller = loader.getController();
-                                controller.setDialogStage(dialogStage);
+                            // Pass Stage to dialog controller
+                            AddTaskDialogController controller = loader.getController();
+                            controller.setDialogStage(dialogStage);
+                            controller.setUpdate(true);
+                            controller.setTextField(currentTask.getTitle(), currentTask.getDescription(), currentTask.getCategory(), currentTask.getPriority(), currentTask.getDueDate());
 
-                                // Use showAndWait() to display the dialog and block the main scene
-                                dialogStage.showAndWait();
+                            // Use showAndWait() to display the dialog and block the main scene
+                            dialogStage.showAndWait();
 
-                                // Handle results here after dialog closes
-                                if (controller.isSaveClicked()) {
-                                    Task updatedTask = controller.getResult();
-
-//                                    todoManager.updateTask(updatedTask.getId(), updatedTask);
-                                }
-
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
+                            // Handle results here after dialog closes
+                            if (controller.isSaveClicked()) {
+                                Task updatedTask = controller.getResult();
+                                System.out.println("SOME STUFF: " + updatedTask);
+                                todoManager.updateTask(originalID, updatedTask);
+                                refreshTable();
                             }
-                        });
 
-                        // Join them together with HBox
-                        HBox managebtn = new HBox(editIcon, deleteIcon);
-                        managebtn.setStyle("-fx-alignment:center");
-                        HBox.setMargin(deleteIcon, new Insets(2, 2, 0, 3));
-                        HBox.setMargin(editIcon, new Insets(2, 3, 0, 2));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
 
-                        setGraphic(managebtn);
+                    // Join them together with HBox
+                    HBox managebtn = new HBox(editIcon, deleteIcon);
+                    managebtn.setStyle("-fx-alignment:center");
+                    HBox.setMargin(deleteIcon, new Insets(2, 2, 0, 3));
+                    HBox.setMargin(editIcon, new Insets(2, 3, 0, 2));
 
-                        setText(null);
-                    }
+                    setGraphic(managebtn);
+
+                    setText(null);
                 }
-            };
+            }
         };
 
         // Make the column editable
@@ -238,7 +240,7 @@ public class TodoController {
         SortedList<Task> sortedList = new SortedList<>(filteredList);
         sortedList.comparatorProperty().bind(taskTableView.comparatorProperty());
 
-        // 3. Set the data source for the TableView ( use the Soretdlist)
+        // 3. Set the data source for the TableView ( use the Sortedlist)
         taskTableView.setItems(sortedList);
         taskTableView.setFixedCellSize(30);
         taskTableView.setEditable(true);

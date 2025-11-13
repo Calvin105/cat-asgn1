@@ -48,12 +48,12 @@ public class TodoList implements TodoInterface {
 
     @Override
     public void updateTask(String id, Task task) {
-        Task updateTask = this.getTask(id);
-        updateTask.setTitle(task.getTitle());
-        updateTask.setDescription(task.getDescription());
-        updateTask.setCompleted(task.isCompleted());
-        updateTask.setPriority(task.getPriority());
-        updateTask.setDueDate(task.getDueDate());
+        Task updatedTask = this.getTask(id);
+        updatedTask.setTitle(task.getTitle());
+        updatedTask.setDescription(task.getDescription());
+        updatedTask.setCompleted(task.isCompleted());
+        updatedTask.setPriority(task.getPriority());
+        updatedTask.setDueDate(task.getDueDate());
         saveTasks();
         System.out.println("TodoList updateTask");
     }

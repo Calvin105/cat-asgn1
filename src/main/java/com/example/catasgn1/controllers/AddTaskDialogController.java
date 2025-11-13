@@ -13,6 +13,7 @@ public class AddTaskDialogController {
 
     private Stage dialogStage;
     private Task result;
+    private boolean update = false;
     private boolean isSaveClicked = false;
 
     public void setDialogStage(Stage dialogStage) {
@@ -30,6 +31,8 @@ public class AddTaskDialogController {
     public void handleCancel() {
         dialogStage.close();
     }
+
+    @FXML private Label titleLabel;
 
     // Fields
     @FXML private TextField taskTitleTextField;
@@ -82,5 +85,22 @@ public class AddTaskDialogController {
         boolean isInvalid = fieldValue == null || (fieldValue instanceof String && ((String) fieldValue).isEmpty());
         errorMessage.setVisible(isInvalid);
         errorMessage.setStyle("-fx-text-fill: red;");
+    }
+
+    public void setTextField(String title, String description, Constants.TaskCategory category, Constants.TaskPriority priority, LocalDate dueDate) {
+        taskTitleTextField.setText(title);
+        taskDescriptionTextField.setText(description);
+        taskCategoryTextField.setValue(category);
+        taskPriorityTextField.setValue(priority);
+        taskDueDateTextPicker.setValue(dueDate);
+    }
+
+    public boolean isUpdate() {
+        return update;
+    }
+
+    public void setUpdate(boolean update) {
+        this.update = update;
+        if (update) titleLabel.setText("Edit Task");
     }
 }
