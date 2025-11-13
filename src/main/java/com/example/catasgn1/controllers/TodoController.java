@@ -3,7 +3,9 @@ package com.example.catasgn1.controllers;
 import com.example.catasgn1.model.Task;
 import com.example.catasgn1.model.TodoList;
 import com.example.catasgn1.utils.Constants;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +13,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.ChoiceBoxTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -20,7 +26,6 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 public class TodoController {
-
     // Search fields
     @FXML
     private TextField fieldSearch;
@@ -29,20 +34,27 @@ public class TodoController {
     @FXML
     private ComboBox<String> comboPriority;
     @FXML
-    private ComboBox<String> comboDueDate;
-    @FXML
     private ComboBox<String> comboStatus;
+
+    private String search;
+    private String category;
+    private String priority;
+    private String status;
 
     // Table
     @FXML
-    private TableView<TodoList> taskTableView;
+    private TableView<Task> taskTableView;
+    @FXML private TableColumn<Task, String> titleCol;
+    @FXML private TableColumn<Task, String> descriptionCol;
+    @FXML private TableColumn<Task, String> priorityCol;
+    @FXML private TableColumn<Task, String> categoryCol;
+    @FXML private TableColumn<Task, String> dueDateCol;
+    @FXML private TableColumn<Task, Boolean> statusCol;
 
     private final TodoList todoManager = new TodoList();
 
     @FXML
     private void initialize() {
-
-
         comboCategory.getItems().addAll(
             Stream.concat(
                 Arrays.stream(Constants.TaskCategory.values()).map(Enum::name),
@@ -55,8 +67,25 @@ public class TodoController {
                 Stream.of("None")
             ).toList()
         ));
-        comboDueDate.getItems().addAll(new String[]{"Ascending", "Descending", "None"});
         comboStatus.getItems().addAll(new String[]{"Done", "Pending", "None"});
+
+        // Initialize the ObservableList
+        ObservableList<Task> taskList = FXCollections.observableArrayList();
+        taskList.addAll(todoManager.getTasks());
+
+        // 1. Link each column to a property in the Task class
+        titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        priorityCol.setCellValueFactory(new PropertyValueFactory<>("priority"));
+        categoryCol.setCellValueFactory(new PropertyValueFactory<>("category"));
+        dueDateCol.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
+        statusCol.setCellValueFactory(new PropertyValueFactory<>("completed"));
+
+        statusCol.setCellFactory(CheckBoxTableCell.forTableColumn(statusCol));
+        // 2. Set the data source for the TableView
+        taskTableView.setItems(taskList);
+        taskTableView.setFixedCellSize(30);
+        taskTableView.setEditable(true);
     }
 
     @FXML
@@ -94,5 +123,33 @@ public class TodoController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void handleFilterChange() {
+        System.out.println("Search Field: " + search);
+        System.out.println("Priority: " + priority);
+        System.out.println("Status: " + status);
+        System.out.println("Category: " + category + '\n');
+    }
+
+    public void handleKeyTyped(KeyEvent keyEvent) {
+        // Every keystroke changes will be reflected here
+        search = fieldSearch.getText();
+        handleFilterChange();
+    }
+
+    public void handleComboPriority(ActionEvent actionEvent) {
+        priority = comboPriority.getSelectionModel().getSelectedItem();
+        handleFilterChange();
+    }
+
+    public void handleComboCategory(ActionEvent actionEvent) {
+        category = comboCategory.getSelectionModel().getSelectedItem();
+        handleFilterChange();
+    }
+
+    public void handleComboStatus(ActionEvent actionEvent) {
+        status = comboStatus.getSelectionModel().getSelectedItem();
+        handleFilterChange();
     }
 }

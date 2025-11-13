@@ -6,6 +6,10 @@ public class Constants {
         Medium,
         Low;
 
+        public String getPriority() {
+            return name();
+        }
+
         // Converts enum name to capitalized word
         public String toCapitalized() {
             String name = this.name().toLowerCase(); // "high"
@@ -20,6 +24,10 @@ public class Constants {
         Health,
         Learning,
         Other;
+
+        public String getCategory() {
+            return name();
+        }
 
         // Converts enum name to capitalized word
         public String toCapitalized() {

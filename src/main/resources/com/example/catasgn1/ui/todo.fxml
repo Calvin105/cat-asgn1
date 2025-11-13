@@ -9,6 +9,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -16,12 +17,12 @@
    <center>
       <TableView fx:id="taskTableView" prefHeight="200.0" prefWidth="749.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn prefWidth="137.60000610351562" text="Title" />
-            <TableColumn prefWidth="258.0" text="Description" />
-            <TableColumn minWidth="0.0" prefWidth="118.0" text="Priority" />
-            <TableColumn prefWidth="120.0" text="Due Date" />
-            <TableColumn prefWidth="116.0" text="Category" />
-            <TableColumn prefWidth="120.0" text="Status" />
+            <TableColumn fx:id="titleCol" prefWidth="192.0" text="Title" />
+            <TableColumn fx:id="descriptionCol" prefWidth="360.0" text="Description" />
+            <TableColumn fx:id="priorityCol" minWidth="0.0" prefWidth="55.0" text="Priority" />
+            <TableColumn fx:id="dueDateCol" prefWidth="83.0" text="Due Date" />
+            <TableColumn fx:id="categoryCol" prefWidth="99.0" text="Category" />
+            <TableColumn fx:id="statusCol" prefWidth="81.0" text="Status" />
         </columns>
       </TableView>
    </center>
@@ -36,29 +37,23 @@
               </VBox.margin>
            </Label>
            <ToolBar maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0">
-               <Button mnemonicParsing="false" onAction="#showTaskDialog" styleClass="add-task-button" text="+" />
-               <VBox layoutX="316.0" layoutY="10.0" prefHeight="48.0" prefWidth="301.0">
-                   <padding>
-                       <Insets left="20.0" />
-                   </padding>
+               <Button mnemonicParsing="false" onAction="#showTaskDialog" prefHeight="35.0" prefWidth="35.0" styleClass="add-task-button" text="+" />
+            <Region prefHeight="48.0" prefWidth="94.0" />
+               <VBox layoutX="316.0" layoutY="10.0" prefHeight="48.0" prefWidth="334.0">
                    <Label text="Search" />
-                   <TextField fx:id="fieldSearch" prefHeight="33.0" prefWidth="271.0" promptText="Search by Title, Description" />
+                   <TextField fx:id="fieldSearch" onKeyTyped="#handleKeyTyped" prefHeight="33.0" prefWidth="331.0" promptText="Search by Title, Description" />
                </VBox>
                <VBox prefHeight="48.0" prefWidth="120.0">
                    <Label text="Priority" />
-                   <ComboBox fx:id="comboPriority" prefHeight="33.0" prefWidth="150.0" promptText="None" />
-               </VBox>
-               <VBox layoutX="495.0" layoutY="10.0" prefHeight="48.0" prefWidth="135.0">
-                   <Label text="Due Date" />
-                   <ComboBox fx:id="comboDueDate" prefHeight="33.0" prefWidth="150.0" promptText="None" />
+                   <ComboBox fx:id="comboPriority" onAction="#handleComboPriority" prefHeight="33.0" prefWidth="150.0" promptText="None" />
                </VBox>
                <VBox layoutX="600.0" layoutY="10.0" prefHeight="48.0" prefWidth="120.0">
                    <Label text="Category" />
-                   <ComboBox fx:id="comboCategory" prefHeight="33.0" prefWidth="150.0" promptText="None" />
+                   <ComboBox fx:id="comboCategory" onAction="#handleComboCategory" prefHeight="33.0" prefWidth="150.0" promptText="None" />
                </VBox>
                <VBox layoutX="10.0" layoutY="10.0" prefHeight="48.0" prefWidth="120.0">
                    <Label text="Status" />
-                   <ComboBox fx:id="comboStatus" prefHeight="33.0" prefWidth="200.0" promptText="None" />
+                   <ComboBox fx:id="comboStatus" onAction="#handleComboStatus" prefHeight="33.0" prefWidth="200.0" promptText="None" />
                </VBox>
            </ToolBar>
        </VBox>
