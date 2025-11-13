@@ -28,7 +28,7 @@
             <Insets top="20.0" />
          </VBox.margin>
          </HBox>
-         <TextField fx:id="taskTitleTextField" prefHeight="134.0" prefWidth="223.0" promptText="Title" />
+         <TextField fx:id="taskTitleTextField" minHeight="40.0" prefHeight="134.0" prefWidth="223.0" promptText="Title" />
          <Label fx:id="errorTitle" text="Title field can't be empty" textFill="#FF0000" visible="false">
          <font>
             <Font name="System Italic" size="12.0" />
@@ -44,7 +44,7 @@
             <Insets top="10.0" />
          </VBox.margin>
          </HBox>
-         <TextArea fx:id="taskDescriptionTextField" prefHeight="173.0" prefWidth="223.0" promptText="Description" wrapText="true" />
+         <TextArea fx:id="taskDescriptionTextField" minHeight="100.0" prefHeight="173.0" prefWidth="223.0" promptText="Description" wrapText="true" />
          <Label fx:id="errorDescription" text="Description field can't be empty" textFill="#FF0000" visible="false">
          <font>
             <Font name="System Italic" size="12.0" />
@@ -60,7 +60,7 @@
             <Insets top="10.0" />
          </VBox.margin>
          </HBox>
-         <ComboBox fx:id="taskCategoryTextField" prefHeight="114.0" prefWidth="221.0" promptText="Category" />
+         <ComboBox fx:id="taskCategoryTextField" minHeight="40.0" prefHeight="40.0" prefWidth="309.0" promptText="Category" />
          <Label fx:id="errorCategory" text="Category field can't be empty" textFill="#FF0000" visible="false">
          <font>
             <Font name="System Italic" size="12.0" />
@@ -76,7 +76,7 @@
             <Insets top="10.0" />
          </VBox.margin>
          </HBox>
-         <ComboBox fx:id="taskPriorityTextField" prefHeight="134.0" prefWidth="221.0" promptText="Priority" />
+         <ComboBox fx:id="taskPriorityTextField" minHeight="40.0" prefHeight="40.0" prefWidth="334.0" promptText="Priority" />
          <Label fx:id="errorPriority" text="Priority field can't be empty" textFill="#FF0000" visible="false">
          <font>
             <Font name="System Italic" size="12.0" />
@@ -92,15 +92,21 @@
             <Insets top="10.0" />
          </VBox.margin>
          </HBox>
-         <DatePicker fx:id="taskDueDateTextPicker" prefHeight="134.0" prefWidth="215.0" promptText="Due Date" />
+         <DatePicker fx:id="taskDueDateTextPicker" minHeight="40.0" prefHeight="40.0" prefWidth="339.0" promptText="Due Date" />
          <Label fx:id="errorDueDate" text="Due Date field can't be empty" textFill="#FF0000" visible="false">
          <font>
             <Font name="System Italic" size="12.0" />
          </font></Label>
 
          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-             <Button mnemonicParsing="false" onAction="#onAddTask" text="+ Save" />
-             <Button mnemonicParsing="false" onAction="#onCancelTask" text="x Cancel" />
+             <Button minHeight="50.0" minWidth="140.0" mnemonicParsing="false" onAction="#onAddTask" prefHeight="23.0" prefWidth="70.0" style="-fx-background-color: #238823;" text="Save" textFill="WHITE">
+            <font>
+               <Font size="18.0" />
+            </font></Button>
+             <Button minHeight="50.0" minWidth="140.0" mnemonicParsing="false" onAction="#onCancelTask" style="-fx-background-color: #D2222D;" text="Cancel" textFill="WHITE">
+            <font>
+               <Font size="18.0" />
+            </font></Button>
          <VBox.margin>
             <Insets top="20.0" />
          </VBox.margin>
