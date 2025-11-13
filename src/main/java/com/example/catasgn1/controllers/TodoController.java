@@ -31,7 +31,6 @@ public class TodoController {
     @FXML private ComboBox<String> comboPriority;
     @FXML private ComboBox<String> comboStatus;
 
-    // Add this with your other @FXML variables at the top
     @FXML private Button btnDeleteTask;
 
     private String search;
@@ -135,7 +134,6 @@ public class TodoController {
         }
     }
 
-    // Add this new method to your TodoController class
 
     @FXML
     private void handleDeleteTask(ActionEvent actionEvent) {
