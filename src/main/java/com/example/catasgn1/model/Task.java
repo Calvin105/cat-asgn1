@@ -2,6 +2,10 @@ package com.example.catasgn1.model;
 
 import com.example.catasgn1.utils.Constants;
 import com.example.catasgn1.interfaces.TaskInterface;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -62,14 +66,18 @@ public class Task implements TaskInterface {
     public LocalDate getDueDate() { return dueDate; }
     public void setDueDate(LocalDate dueDate) { this.dueDate = dueDate; }
 
+    public StringProperty categoryProperty() {return new SimpleStringProperty(category.toString());}
     public Constants.TaskCategory getCategory() { return category; }
     public void setCategory(Constants.TaskCategory category) { this.category = category; }
 
+    public StringProperty priorityProperty() { return new SimpleStringProperty(priority.toString()); }
     public Constants.TaskPriority getPriority() { return priority; }
     public void setPriority(Constants.TaskPriority priority) { this.priority = priority; }
 
+    // For TodoController, cell value factory
+    public BooleanProperty completedProperty() { return new SimpleBooleanProperty(completed); }
     public boolean isCompleted() { return completed; }
-    public void setCompleted(boolean completed) { this.completed = completed; }
+    public void setCompleted(boolean completed) { this.completed =  completed; }
 
     public String toString() {
         return "Task {" +

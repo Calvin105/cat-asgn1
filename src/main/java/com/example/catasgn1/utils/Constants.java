@@ -2,37 +2,37 @@ package com.example.catasgn1.utils;
 
 public class Constants {
     public enum TaskPriority {
-        High,
-        Medium,
-        Low;
+        HIGH("High"),
+        MEDIUM("Medium"),
+        LOW("Low");
 
-        public String getPriority() {
-            return name();
+        private final String displayName;
+        TaskPriority(String priority) {
+            this.displayName = priority;
         }
 
-        // Converts enum name to capitalized word
-        public String toCapitalized() {
-            String name = this.name().toLowerCase(); // "high"
-            return name.substring(0, 1).toUpperCase() + name.substring(1); // "High"
+        @Override
+        public String toString() {
+            return displayName;
         }
     }
 
     public enum TaskCategory {
-        Work,
-        Personal,
-        Finance,
-        Health,
-        Learning,
-        Other;
+        WORK("Work"),
+        PERSONAL("Personal"),
+        FINANCE("Finance"),
+        HEALTH("Health"),
+        LEARNING("Learning"),
+        OTHER("Other");
 
-        public String getCategory() {
-            return name();
+        private final String displayName;
+        TaskCategory(String category) {
+            this.displayName = category;
         }
 
-        // Converts enum name to capitalized word
-        public String toCapitalized() {
-            String name = this.name().toLowerCase(); // "high"
-            return name.substring(0, 1).toUpperCase() + name.substring(1); // "High"
+        @Override
+        public String toString() {
+            return displayName;
         }
     }
 }

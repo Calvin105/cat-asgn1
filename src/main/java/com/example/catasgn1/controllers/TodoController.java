@@ -3,7 +3,6 @@ package com.example.catasgn1.controllers;
 import com.example.catasgn1.model.Task;
 import com.example.catasgn1.model.TodoList;
 import com.example.catasgn1.utils.Constants;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,7 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
-import javafx.scene.control.cell.ChoiceBoxTableCell;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
@@ -57,13 +56,13 @@ public class TodoController {
     private void initialize() {
         comboCategory.getItems().addAll(
             Stream.concat(
-                Arrays.stream(Constants.TaskCategory.values()).map(Enum::name),
+                Arrays.stream(Constants.TaskCategory.values()).map(Enum::toString),
                 Stream.of("None")
             ).toList()
         );
         comboPriority.setItems(FXCollections.observableArrayList(
             Stream.concat(
-                Arrays.stream(Constants.TaskPriority.values()).map(Enum::name),
+                Arrays.stream(Constants.TaskPriority.values()).map(Enum::toString),
                 Stream.of("None")
             ).toList()
         ));
@@ -76,12 +75,21 @@ public class TodoController {
         // 1. Link each column to a property in the Task class
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
-        priorityCol.setCellValueFactory(new PropertyValueFactory<>("priority"));
-        categoryCol.setCellValueFactory(new PropertyValueFactory<>("category"));
+        priorityCol.setCellValueFactory(
+            cellData -> cellData.getValue().priorityProperty()
+        );
+        categoryCol.setCellValueFactory(
+            cellData -> cellData.getValue().categoryProperty()
+        );
         dueDateCol.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
-        statusCol.setCellValueFactory(new PropertyValueFactory<>("completed"));
+        statusCol.setCellValueFactory(
+            cellData -> cellData.getValue().completedProperty()
+        );
 
+        // Make the column editable
         statusCol.setCellFactory(CheckBoxTableCell.forTableColumn(statusCol));
+        priorityCol.setCellFactory(ComboBoxTableCell.forTableColumn(Arrays.toString(Constants.TaskPriority.values())));
+
         // 2. Set the data source for the TableView
         taskTableView.setItems(taskList);
         taskTableView.setFixedCellSize(30);

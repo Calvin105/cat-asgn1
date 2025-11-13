@@ -3,8 +3,8 @@
     {
       "id": "1",
       "title": "Complete project proposal",
-      "priority": "High",
-      "category": "Work",
+      "priority": "HIGH",
+      "category": "WORK",
       "description": "Write and finalize the quarterly project proposal document",
       "dueDate": "2024-01-15",
       "completed": false
@@ -12,8 +12,8 @@
     {
       "id": "2",
       "title": "Buy groceries",
-      "priority": "High",
-      "category": "Work",
+      "priority": "MEDIUM",
+      "category": "PERSONAL",
       "description": "Milk, eggs, bread, fruits, and vegetables",
       "dueDate": "2024-01-10",
       "completed": false
@@ -21,8 +21,8 @@
     {
       "id": "3",
       "title": "Dentist appointment",
-      "priority": "High",
-      "category": "Work",
+      "priority": "LOW",
+      "category": "WORK",
       "description": "Regular dental checkup at Main Street Clinic",
       "dueDate": "2024-01-12",
       "completed": false
@@ -30,11 +30,11 @@
     {
       "id": "4",
       "title": "Read book",
-      "priority": "High",
-      "category": "Work",
+      "priority": "HIGH",
+      "category": "WORK",
       "description": "Finish reading \u0027The Psychology of Money\u0027",
       "dueDate": "2024-01-20",
-      "completed": false
+      "completed": true
     }
   ]
 }
