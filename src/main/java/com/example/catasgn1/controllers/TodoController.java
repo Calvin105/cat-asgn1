@@ -3,6 +3,7 @@ package com.example.catasgn1.controllers;
 import com.example.catasgn1.model.Task;
 import com.example.catasgn1.model.TodoList;
 import com.example.catasgn1.utils.Constants;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -20,7 +21,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -36,6 +39,8 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class TodoController {
+    @FXML private BorderPane rootPane;
+
     // Search fields
     @FXML private TextField fieldSearch;
     @FXML private ComboBox<String> comboCategory;
@@ -370,5 +375,86 @@ public class TodoController {
     public void handleComboStatus(ActionEvent actionEvent) {
         status = comboStatus.getSelectionModel().getSelectedItem();
         handleFilterChange();
+    }
+
+    public void onExit(ActionEvent actionEvent) {
+        Platform.exit();
+    }
+
+    public void onAbout(ActionEvent actionEvent) {
+        // 1. Create a new Stage (Window) for the dialog
+        final Stage dialogStage = new Stage();
+
+        // Set properties for the dialog window
+        dialogStage.setTitle("About ToDo Manager");
+        // Make it modal (user must close it before interacting with main window)
+        dialogStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+
+        // 2. Create the content (Labels and layout)
+        Label titleLabel = new Label("CAT201 ToDo List App");
+        titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
+
+        Label teamHeader = new Label("Project Team Members");
+        teamHeader.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 10 0 0 0;");
+
+        Label purposeLabel = new Label("Course Assignment: CAT201");
+        Label member1 = new Label("1. Calvin Khoo Zhen Chen");
+        Label member2 = new Label("2. Ch'ng Bao Sheng");
+        Label member3 = new Label("3. Pik Yun Han");
+
+        // 3. Arrange the content in a VBox
+        VBox root = new VBox(10); // 10 is the spacing between elements
+        root.setAlignment(Pos.CENTER);
+        root.setPadding(new Insets(20));
+        root.getChildren().addAll(titleLabel, purposeLabel, teamHeader, member1, member2, member3);
+
+        // 4. Create the Scene and set it on the Stage
+        Scene dialogScene = new Scene(root, 300, 200);
+        dialogStage.setScene(dialogScene);
+
+        // Optional: Prevent resizing
+        dialogStage.setResizable(false);
+
+        // 5. Show the dialog and wait for it to be closed
+        dialogStage.showAndWait();
+    }
+
+    public void onNew(ActionEvent actionEvent) {
+        try {
+            // 1. Load the FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/catasgn1/ui/task-dialog.fxml"));
+            Parent root = loader.load();
+
+            // 2. Create the Stage for the pop-up
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Task Details");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+
+            // 3. Get the owner window from the button that triggered the event
+            Window mainWindow = rootPane.getScene().getWindow();
+            dialogStage.initOwner(mainWindow);
+
+            // 4. Set the Scene and display
+            dialogStage.setScene(new Scene(root));
+
+            // Pass Stage to dialog controller
+            AddTaskDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+
+            // Use showAndWait() to display the dialog and block the main scene
+            dialogStage.showAndWait();
+
+            // Handle results here after dialog closes
+            if (controller.isSaveClicked()) {
+                Task newTask = controller.getResult();
+
+                // Update table
+                todoManager.addTask(newTask);
+                refreshTable();
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
