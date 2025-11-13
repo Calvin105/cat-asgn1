@@ -5,6 +5,8 @@ import com.example.catasgn1.model.TodoList;
 import com.example.catasgn1.utils.Constants;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +24,7 @@ import javafx.stage.Window;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class TodoController {
@@ -49,6 +52,8 @@ public class TodoController {
 
     ObservableList<Task> taskList = FXCollections.observableArrayList();
     private final TodoList todoManager = new TodoList();
+
+    private FilteredList<Task> filteredList;
 
     @FXML
     private void initialize() {
@@ -87,8 +92,16 @@ public class TodoController {
         statusCol.setCellFactory(CheckBoxTableCell.forTableColumn(statusCol));
         priorityCol.setCellFactory(ComboBoxTableCell.forTableColumn(Arrays.toString(Constants.TaskPriority.values())));
 
-        // 2. Set the data source for the TableView
-        taskTableView.setItems(taskList);
+        // 2. Set up the list
+        // Wrap your master list in a FilteredList
+        filteredList = new FilteredList<>(taskList, p -> true);  // p -> true means "show all"
+
+        // Wrap the FilteredList in a SortedList for column sorting
+        SortedList<Task> sortedList = new SortedList<>(filteredList);
+        sortedList.comparatorProperty().bind(taskTableView.comparatorProperty());
+
+        // 3. Set the data source for the TableView ( use the Soretdlist)
+        taskTableView.setItems(sortedList);
         taskTableView.setFixedCellSize(30);
         taskTableView.setEditable(true);
     }
@@ -164,6 +177,53 @@ public class TodoController {
         System.out.println("Priority: " + priority);
         System.out.println("Status: " + status);
         System.out.println("Category: " + category + '\n');
+
+        // 1. Start with a Predicate that shows everything
+        Predicate<Task> combinedPredicate = p -> true;
+
+        // 2. Add the Keyword Search filter
+        if (search != null && !search.isEmpty()) {
+            String lowerCaseSearch = search.toLowerCase();
+            // Create a test for the search
+            Predicate<Task> searchPredicate = task -> task.getTitle().toLowerCase().contains(lowerCaseSearch) || task.getDescription().toLowerCase().contains(lowerCaseSearch);
+            // Add it to the combined test
+            combinedPredicate = combinedPredicate.and(searchPredicate);
+        }
+
+        // 3. Add the Priority filter
+        if (priority != null && !priority.equals("None")) {
+            // Create a test for priority
+            Predicate<Task> priorityPredicate = task -> task.getPriority() != null &&
+                    task.getPriority().toString().equals(priority);
+            // Add it to the combined test
+            combinedPredicate = combinedPredicate.and(priorityPredicate);
+        }
+
+        // 4. Add the Category filter
+        if (category != null && !category.equals("None")) {
+            // Create a test for category
+            Predicate<Task> categoryPredicate = task -> task.getCategory() != null &&
+                    task.getCategory().toString().equals(category);
+            // Add it to the combined test
+            combinedPredicate = combinedPredicate.and(categoryPredicate);
+        }
+
+        // 5. Add the Status filter
+        if (status != null && !status.equals("None")) {
+            Predicate<Task> statusPredicate;
+            if (status.equals("Done")){
+                statusPredicate = task -> task.isCompleted();
+            } else { // "Pending"
+                statusPredicate = task -> !task.isCompleted();
+            }
+            // Add it to the combined test
+            combinedPredicate = combinedPredicate.and(statusPredicate);
+        }
+
+        // 6. Finally, apply the combined filter to the list
+        // The TableView will update automatically
+        filteredList.setPredicate(combinedPredicate);
+
     }
 
     public void handleKeyTyped(KeyEvent keyEvent) {
