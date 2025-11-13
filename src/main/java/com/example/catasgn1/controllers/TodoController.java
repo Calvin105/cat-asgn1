@@ -26,14 +26,10 @@ import java.util.stream.Stream;
 
 public class TodoController {
     // Search fields
-    @FXML
-    private TextField fieldSearch;
-    @FXML
-    private ComboBox<String> comboCategory;
-    @FXML
-    private ComboBox<String> comboPriority;
-    @FXML
-    private ComboBox<String> comboStatus;
+    @FXML private TextField fieldSearch;
+    @FXML private ComboBox<String> comboCategory;
+    @FXML private ComboBox<String> comboPriority;
+    @FXML private ComboBox<String> comboStatus;
 
     private String search;
     private String category;
@@ -41,8 +37,7 @@ public class TodoController {
     private String status;
 
     // Table
-    @FXML
-    private TableView<Task> taskTableView;
+    @FXML private TableView<Task> taskTableView;
     @FXML private TableColumn<Task, String> titleCol;
     @FXML private TableColumn<Task, String> descriptionCol;
     @FXML private TableColumn<Task, String> priorityCol;
@@ -50,6 +45,7 @@ public class TodoController {
     @FXML private TableColumn<Task, String> dueDateCol;
     @FXML private TableColumn<Task, Boolean> statusCol;
 
+    ObservableList<Task> taskList = FXCollections.observableArrayList();
     private final TodoList todoManager = new TodoList();
 
     @FXML
@@ -69,7 +65,6 @@ public class TodoController {
         comboStatus.getItems().addAll(new String[]{"Done", "Pending", "None"});
 
         // Initialize the ObservableList
-        ObservableList<Task> taskList = FXCollections.observableArrayList();
         taskList.addAll(todoManager.getTasks());
 
         // 1. Link each column to a property in the Task class
@@ -126,6 +121,10 @@ public class TodoController {
             // Handle results here after dialog closes
             if (controller.isSaveClicked()) {
                 Task newTask = controller.getResult();
+                todoManager.addTask(newTask);
+                taskList.clear();
+                taskList.addAll(todoManager.getTasks());
+                taskTableView.refresh();
             }
 
         } catch (IOException e) {

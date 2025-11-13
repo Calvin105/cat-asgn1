@@ -32,28 +32,18 @@ public class AddTaskDialogController {
     }
 
     // Fields
-    @FXML
-    private TextField taskTitleTextField;
-    @FXML
-    private TextArea taskDescriptionTextField;
-    @FXML
-    private ComboBox<Constants.TaskCategory> taskCategoryTextField;
-    @FXML
-    private ComboBox<Constants.TaskPriority> taskPriorityTextField;
-    @FXML
-    private DatePicker taskDueDateTextPicker;
+    @FXML private TextField taskTitleTextField;
+    @FXML private TextArea taskDescriptionTextField;
+    @FXML private ComboBox<Constants.TaskCategory> taskCategoryTextField;
+    @FXML private ComboBox<Constants.TaskPriority> taskPriorityTextField;
+    @FXML private DatePicker taskDueDateTextPicker;
 
     // Errors
-    @FXML
-    private Label errorTitle;
-    @FXML
-    private Label errorDescription;
-    @FXML
-    private Label errorCategory;
-    @FXML
-    private Label errorPriority;
-    @FXML
-    private Label errorDueDate;
+    @FXML private Label errorTitle;
+    @FXML private Label errorDescription;
+    @FXML private Label errorCategory;
+    @FXML private Label errorPriority;
+    @FXML private Label errorDueDate;
 
     @FXML
     private void initialize() {
