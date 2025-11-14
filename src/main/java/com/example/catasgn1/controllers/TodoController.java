@@ -47,12 +47,13 @@ public class TodoController {
     @FXML private ComboBox<String> comboCategory;
     @FXML private ComboBox<String> comboPriority;
     @FXML private ComboBox<String> comboStatus;
-    @FXML private DatePicker pickerDueDate;
+    @FXML private ComboBox<String> comboDueDate;
 
     private String search;
     private String category;
     private String priority;
     private String status;
+    private String dueDate;
 
     // Table
     @FXML private TableView<Task> taskTableView;
@@ -131,6 +132,7 @@ public class TodoController {
                 ).toList()
         ));
         comboStatus.getItems().addAll("Done", "Pending", "None");
+        comboDueDate.getItems().addAll("Today", "This Week", "Overdue", "None");
     }
 
     private void setupTable() {
@@ -379,6 +381,11 @@ public class TodoController {
         handleFilterChange();
     }
 
+    public void handleComboDueDate(ActionEvent actionEvent) {
+        dueDate = comboDueDate.getSelectionModel().getSelectedItem();
+        handleFilterChange();
+    }
+
     public void onExit(ActionEvent actionEvent) {
         Platform.exit();
     }
@@ -460,15 +467,12 @@ public class TodoController {
         }
     }
 
-    public void handlePickerDueDate(ActionEvent actionEvent) {
-        LocalDate selectedDate = pickerDueDate.getValue();
-    }
-
     public void refresh(ActionEvent actionEvent) {
         fieldSearch.clear();
         comboStatus.setValue("None");
         comboCategory.setValue("None");
         comboPriority.setValue("None");
-        pickerDueDate.setValue(null);
+        comboDueDate.setValue("None");
+
     }
 }
