@@ -34,6 +34,7 @@ import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -46,6 +47,7 @@ public class TodoController {
     @FXML private ComboBox<String> comboCategory;
     @FXML private ComboBox<String> comboPriority;
     @FXML private ComboBox<String> comboStatus;
+    @FXML private DatePicker pickerDueDate;
 
     private String search;
     private String category;
@@ -456,5 +458,17 @@ public class TodoController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void handlePickerDueDate(ActionEvent actionEvent) {
+        LocalDate selectedDate = pickerDueDate.getValue();
+    }
+
+    public void refresh(ActionEvent actionEvent) {
+        fieldSearch.clear();
+        comboStatus.setValue("None");
+        comboCategory.setValue("None");
+        comboPriority.setValue("None");
+        pickerDueDate.setValue(null);
     }
 }
