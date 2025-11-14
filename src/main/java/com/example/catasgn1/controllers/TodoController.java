@@ -354,7 +354,23 @@ public class TodoController {
             combinedPredicate = combinedPredicate.and(statusPredicate);
         }
 
-        // 6. Finally, apply the combined filter to the list
+        // 6. Add the Due Date filter
+        if (dueDate != null && !dueDate.equals("None")) {
+            LocalDate today = LocalDate.now();
+            Predicate<Task> datePredicate;
+
+            if (dueDate.equals("Today")) {
+                datePredicate = task -> task.getDueDate() != null && task.getDueDate().isEqual(today);
+            } else if (dueDate.equals("This Week")) {
+                // "This Week" = today or in the next 7 days
+                LocalDate endOfWeek = today.plusDays(7);
+                datePredicate = task -> task.getDueDate() != null && !task.getDueDate().isBefore(today) && task.getDueDate().isBefore(endOfWeek);
+            } else { // "Overdue"
+                datePredicate = task -> task.getDueDate() != null && task.getDueDate().isBefore(today) && !task.isCompleted(); // Only show if not done
+            }
+            combinedPredicate = combinedPredicate.and(datePredicate);
+        }
+        // 7. Finally, apply the combined filter to the list
         // The TableView will update automatically
         filteredList.setPredicate(combinedPredicate);
 
