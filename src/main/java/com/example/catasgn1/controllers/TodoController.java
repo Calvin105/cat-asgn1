@@ -407,41 +407,34 @@ public class TodoController {
     }
 
     public void onAbout(ActionEvent actionEvent) {
-        // 1. Create a new Stage (Window) for the dialog
-        final Stage dialogStage = new Stage();
+        try {
+            // 1. Load the FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/catasgn1/ui/about.fxml"));
+            VBox root = loader.load(); // The root element from the FXML file
 
-        // Set properties for the dialog window
-        dialogStage.setTitle("About ToDo Manager");
-        // Make it modal (user must close it before interacting with main window)
-        dialogStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+            // 2. Create the Stage (Window) for the dialog
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("About ToDo Manager");
+            // Set modality to APPLICATION_MODAL
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
 
-        // 2. Create the content (Labels and layout)
-        Label titleLabel = new Label("CAT201 ToDo List App");
-        titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
+            // Optional: You should set the owner window for better window management
+            // dialogStage.initOwner(mainApp.getPrimaryStage()); // (If you have access to the primary Stage)
 
-        Label teamHeader = new Label("Project Team Members");
-        teamHeader.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 10 0 0 0;");
+            // 3. Create the Scene and set it on the Stage
+            Scene dialogScene = new Scene(root);
+            dialogStage.setScene(dialogScene);
 
-        Label purposeLabel = new Label("Course Assignment: CAT201");
-        Label member1 = new Label("1. Calvin Khoo Zhen Chen");
-        Label member2 = new Label("2. Ch'ng Bao Sheng");
-        Label member3 = new Label("3. Pik Yun Han");
+            // Optional: Prevent resizing
+            dialogStage.setResizable(false);
 
-        // 3. Arrange the content in a VBox
-        VBox root = new VBox(10); // 10 is the spacing between elements
-        root.setAlignment(Pos.CENTER);
-        root.setPadding(new Insets(20));
-        root.getChildren().addAll(titleLabel, purposeLabel, teamHeader, member1, member2, member3);
+            // 4. Show the dialog and wait for it to be closed
+            dialogStage.showAndWait();
 
-        // 4. Create the Scene and set it on the Stage
-        Scene dialogScene = new Scene(root, 300, 200);
-        dialogStage.setScene(dialogScene);
-
-        // Optional: Prevent resizing
-        dialogStage.setResizable(false);
-
-        // 5. Show the dialog and wait for it to be closed
-        dialogStage.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle error (e.g., show an Alert)
+        }
     }
 
     public void onNew(ActionEvent actionEvent) {
